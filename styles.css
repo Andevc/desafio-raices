@@ -1,0 +1,254 @@
+@font-face {
+  font-family: "KgTrueColors";
+  src: url("assets/KgTrueColors-vG5O.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #82fac2 100%);
+    min-height: 100vh;
+    padding: 2em;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.tittle-panel{
+    padding: 10px;
+    backdrop-filter: blur(20em);
+    font-family: KgTrueColors;
+    color: white;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.425);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 2em;
+    margin: 1em 0 2em 0;
+}
+h1 {
+    text-align: center;
+    border-radius: 1em;
+    font-size: 3em;
+    letter-spacing: 5px;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    font-size: 2rem;
+    letter-spacing: 3px;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 1024px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.config-panel,
+.graph-panel,
+.iterations-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    color: #1f2937;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #374151;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.input-row input {
+    flex: 1;
+}
+
+.equation-display {
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+#equationDisplay {
+
+    border-left: 2px solid #667eea;
+    padding: 1em;
+    background: #eeededaa;
+
+}
+.solve-btn {
+    width: 100%;
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.solve-btn:hover {
+    background: #5568d3;
+}
+
+.solve-btn:active {
+    transform: scale(0.98);
+}
+
+#graph {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+.result-box {
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.result-success {
+    background: #d1fae5;
+    border: 2px solid #6ee7b7;
+}
+
+.result-error {
+    background: #fee2e2;
+    border: 2px solid #fca5a5;
+}
+
+.result-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.result-success .result-title {
+    color: #065f46;
+}
+
+.result-error .result-title {
+    color: #991b1b;
+}
+
+.result-detail {
+    font-size: 0.9rem;
+    margin: 3px 0;
+}
+
+.result-success .result-detail {
+    color: #047857;
+}
+
+.result-error .result-detail {
+    color: #dc2626;
+}
+
+.warning {
+    color: #d97706;
+    margin-top: 8px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+thead {
+    background: #f3f4f6;
+}
+
+th {
+    padding: 12px;
+    text-align: left;
+    color: #1f2937;
+    font-weight: 600;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+tbody tr:hover {
+    background: #f3f4f6;
+}
+
+.iterations-panel {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raices de Ecuaciones</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="tittle-panel">
+            <h1>Comparación de Métodos Numéricos</h1>
+            <p class="subtitle">Encuentra <strong>raíces</strong> de ecuaciones no lineales</p>
+        </div>
+        <div class="main-grid">
+            <!-- Panel de configuración -->
+            <div class="config-panel">
+                <h2>Configuración</h2>
+
+                <div class="form-group">
+                    <label>Seleccionar Ecuación</label>
+                    <select id="equationSelect">
+                        <option value="1">Ecuación 1</option>
+                        <option value="2">Ecuación 2</option>
+                        <option value="3">Ecuación 3</option>
+                        <option value="4">Ecuación 4</option>
+                    </select>
+                    <p class="equation-display" id="equationDisplay"></p>
+                </div>
+
+                <div class="form-group">
+                    <label>Método Numérico</label>
+                    <select id="methodSelect">
+                        <option value="bisection">Bisección</option>
+                        <option value="newton">Newton-Raphson</option>
+                        <option value="secant">Secante</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="intervalGroup">
+                    <label>Intervalo [a, b]</label>
+                    <div class="input-row">
+                        <input type="number" id="intervalA" step="0.1" value="0" placeholder="a">
+                        <input type="number" id="intervalB" step="0.1" value="8" placeholder="b">
+                    </div>
+                </div>
+
+                <div class="form-group" id="initialGuessGroup" style="display: none;">
+                    <label id="initialGuessLabel">Valor Inicial (x₀)</label>
+                    <div class="input-row">
+                        <input type="number" id="x0" step="0.1" value="1" placeholder="x₀">
+                        <input type="number" id="x1" step="0.1" value="2" placeholder="x₁" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tolerancia</label>
+                    <input type="number" id="tolerance" step="0.0001" value="0.0001">
+                </div>
+
+                <div class="form-group">
+                    <label>Iteraciones Máximas</label>
+                    <input type="number" id="maxIterations" value="50">
+                </div>
+
+                <button id="solveButton" class="solve-btn">Calcular Raíz</button>
+            </div>
+
+            <!-- Panel de visualización -->
+            <div class="graph-panel">
+                <h2>Visualización</h2>
+                <div id="graph"></div>
+                <div id="resultDisplay"></div>
+            </div>
+        </div>
+
+        <!-- Tabla de iteraciones -->
+        <div class="iterations-panel" id="iterationsPanel" style="display: none;">
+            <h2>Tabla de Iteraciones</h2>
+            <div class="table-container">
+                <table id="iterationsTable"></table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
