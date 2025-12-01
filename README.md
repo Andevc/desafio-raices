@@ -61,8 +61,6 @@ Cada archivo de Excel contiene:
 
 **[👉 Abrir Calculadora de Métodos Numéricos](https://andevc.github.io/desafio-raices/)**
 
-> **Nota:** Reemplaza `andevc.github.io/desafio-raices/` con el enlace de tu aplicación desplegada (GitHub Pages, Netlify, Vercel, etc.)
-
 ### Características de la Aplicación Web:
 
 #### Funcionalidades Principales:
