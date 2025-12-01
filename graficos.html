@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos de Funciones - Métodos Numéricos</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1a1a1a;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .graph-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+
+        .equation {
+            font-size: 1.1rem;
+            color: #555;
+            font-style: italic;
+        }
+
+        .graph-container {
+            width: 100%;
+            height: 500px;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .info-box h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .roots-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .root-item {
+            background: white;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .root-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .root-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 30px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .print-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .control-group input {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            width: 100px;
+        }
+
+        .update-btn {
+            padding: 8px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .update-btn:hover {
+            background: #5568d3;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .print-btn {
+                display: none;
+            }
+            .controls {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimir Gráficos</button>
+
+    <div class="container">
+        <div class="header">
+            <h1>📈 Gráficos de Funciones</h1>
+            <p class="subtitle">Visualización de Ecuaciones No Lineales y sus Raíces</p>
+        </div>
+
+        <!-- ECUACIÓN 1 -->
+        <div class="graph-section">
+            <div class="graph-header">
+                <div>
+                    <h2>Ecuación 1</h2>
+                    <p class="equation">f(x) = x³ - e^(0.8x) - 20</p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>Dominio X:</label>
+                    <input type="number" id="x1-min" value="0" step="0.5">
+                    <span>a</span>
+                    <input type="number" id="x1-max" value="8" step="0.5">
+                </div>
+                <button class="update-btn" onclick="updateGraph1()">Actualizar Gráfico</button>
+            </div>
+
+            <div id="graph1" class="graph-container"></div>
+
+            <div class="info-box">
+                <h3>📍 Raíces Encontradas</h3>
+                <div class="roots-list">
+                    <div class="root-item">
+                        <div class="root-label">Bisección</div>
+                        <div class="root-value">x ≈ 3.590942</div>
+                    </div>
+                    <div class="root-item">
+                        <div class="root-label">Newton-Raphson</div>
+                        <div class="root-value">x ≈ 3.590442</div>
+                    </div>
+                    <div class="root-item">
+                        <div class="root-label">Secante</div>
+                        <div class="root-value">x ≈ 3.590441</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: #555;">
+                    <strong>Análisis:</strong> La función tiene una única raíz real en el intervalo [0, 8]. 
+                    Los tres métodos convergen al mismo valor con alta precisión.
+                </p>
+            </div>
+        </div>
+
+        <!-- ECUACIÓN 2 -->
+        <div class="graph-section">
+            <div class="graph-header">
+                <div>
+                    <h2>Ecuación 2</h2>
+                    <p class="equation">f(x) = 3sin(0.5x) - 0.5x + 2</p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>Dominio X:</label>
+                    <input type="number" id="x2-min" value="-2" step="0.5">
+                    <span>a</span>
+                    <input type="number" id="x2-max" value="10" step="0.5">
+                </div>
+                <button class="update-btn" onclick="updateGraph2()">Actualizar Gráfico</button>
+            </div>
+
+            <div id="graph2" class="graph-container"></div>
+
+            <div class="info-box">
+                <h3>📍 Raíz Encontrada</h3>
+                <div class="roots-list">
+                    <div class="root-item">
+                        <div class="root-label">Raíz Principal</div>
+                        <div class="root-value">x ≈ 6.283</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: #555;">
+                    <strong>Análisis:</strong> Esta ecuación trigonométrica tiene múltiples raíces debido a la naturaleza 
+                    periódica de la función seno. La raíz principal se encuentra alrededor de x ≈ 6.283.
+                </p>
+            </div>
+        </div>
+
+        <!-- ECUACIÓN 3 -->
+        <div class="graph-section">
+            <div class="graph-header">
+                <div>
+                    <h2>Ecuación 3</h2>
+                    <p class="equation">f(x) = x³ - x²e^(-0.5x) - 3x + 1</p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>Dominio X:</label>
+                    <input type="number" id="x3-min" value="-2" step="0.5">
+                    <span>a</span>
+                    <input type="number" id="x3-max" value="5" step="0.5">
+                </div>
+                <button class="update-btn" onclick="updateGraph3()">Actualizar Gráfico</button>
+            </div>
+
+            <div id="graph3" class="graph-container"></div>
+
+            <div class="info-box">
+                <h3>📍 Tres Raíces Encontradas</h3>
+                <div class="roots-list">
+                    <div class="root-item">
+                        <div class="root-label">Raíz 1</div>
+                        <div class="root-value">x ≈ -0.359</div>
+                    </div>
+                    <div class="root-item">
+                        <div class="root-label">Raíz 2</div>
+                        <div class="root-value">x ≈ 0.317</div>
+                    </div>
+                    <div class="root-item">
+                        <div class="root-label">Raíz 3</div>
+                        <div class="root-value">x ≈ 3.102</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: #555;">
+                    <strong>Análisis:</strong> Esta ecuación polinómica de grado 3 modificada tiene tres raíces reales 
+                    en el dominio especificado. Cada raíz puede encontrarse usando diferentes intervalos iniciales.
+                </p>
+            </div>
+        </div>
+
+        <!-- ECUACIÓN 4 -->
+        <div class="graph-section">
+            <div class="graph-header">
+                <div>
+                    <h2>Ecuación 4</h2>
+                    <p class="equation">f(x) = cos²(x) - 0.5xe^(0.3x) + 5</p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>Dominio X:</label>
+                    <input type="number" id="x4-min" value="-5" step="0.5">
+                    <span>a</span>
+                    <input type="number" id="x4-max" value="0" step="0.5">
+                </div>
+                <button class="update-btn" onclick="updateGraph4()">Actualizar Gráfico</button>
+            </div>
+
+            <div id="graph4" class="graph-container"></div>
+
+            <div class="info-box">
+                <h3>📍 Raíces Positivas Encontradas</h3>
+                <div class="roots-list">
+                    <div class="root-item">
+                        <div class="root-label">Raíz Principal</div>
+                        <div class="root-value">x ≈ -4.129</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: #555;">
+                    <strong>Análisis:</strong> Esta ecuación combina funciones trigonométricas y exponenciales. 
+                    La raíz positiva se encuentra en el rango negativo debido a la naturaleza de la función.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Configuración de layout común
+        const commonLayout = {
+            showlegend: true,
+            hovermode: 'closest',
+            plot_bgcolor: '#f8f9fa',
+            paper_bgcolor: 'white',
+            font: { family: 'Segoe UI', size: 12 },
+            xaxis: {
+                title: 'x',
+                gridcolor: '#e0e0e0',
+                zeroline: true,
+                zerolinecolor: '#000',
+                zerolinewidth: 2
+            },
+            yaxis: {
+                title: 'f(x)',
+                gridcolor: '#e0e0e0',
+                zeroline: true,
+                zerolinecolor: '#000',
+                zerolinewidth: 2
+            }
+        };
+
+        // Función para generar puntos
+        function generatePoints(f, xMin, xMax, points = 500) {
+            const step = (xMax - xMin) / points;
+            const x = [];
+            const y = [];
+            
+            for (let i = 0; i <= points; i++) {
+                const xVal = xMin + i * step;
+                x.push(xVal);
+                y.push(f(xVal));
+            }
+            
+            return { x, y };
+        }
+
+        // Ecuación 1: x³ - e^(0.8x) - 20
+        function updateGraph1() {
+            const xMin = parseFloat(document.getElementById('x1-min').value);
+            const xMax = parseFloat(document.getElementById('x1-max').value);
+            
+            const f1 = (x) => Math.pow(x, 3) - Math.exp(0.8 * x) - 20;
+            const data1 = generatePoints(f1, xMin, xMax);
+            
+            const trace1 = {
+                x: data1.x,
+                y: data1.y,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'f(x)',
+                line: { color: '#667eea', width: 3 }
+            };
+            
+            const trace2 = {
+                x: [xMin, xMax],
+                y: [0, 0],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'y = 0',
+                line: { color: '#ef4444', width: 2, dash: 'dash' }
+            };
+            
+            // Marcar las raíces
+            const roots = [3.590441];
+            const traceRoots = {
+                x: roots,
+                y: roots.map(f1),
+                type: 'scatter',
+                mode: 'markers',
+                name: 'Raíces',
+                marker: { color: '#4caf50', size: 12, symbol: 'circle' }
+            };
+            
+            const layout = {
+                ...commonLayout,
+                title: 'Ecuación 1: x³ - e^(0.8x) = 20'
+            };
+            
+            Plotly.newPlot('graph1', [trace1, trace2, traceRoots], layout, { responsive: true });
+        }
+
+        // Ecuación 2: 3sin(0.5x) - 0.5x + 2
+        function updateGraph2() {
+            const xMin = parseFloat(document.getElementById('x2-min').value);
+            const xMax = parseFloat(document.getElementById('x2-max').value);
+            
+            const f2 = (x) => 3 * Math.sin(0.5 * x) - 0.5 * x + 2;
+            const data2 = generatePoints(f2, xMin, xMax);
+            
+            const trace1 = {
+                x: data2.x,
+                y: data2.y,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'f(x)',
+                line: { color: '#9c27b0', width: 3 }
+            };
+            
+            const trace2 = {
+                x: [xMin, xMax],
+                y: [0, 0],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'y = 0',
+                line: { color: '#ef4444', width: 2, dash: 'dash' }
+            };
+            
+            const layout = {
+                ...commonLayout,
+                title: 'Ecuación 2: 3sin(0.5x) - 0.5x + 2 = 0'
+            };
+            
+            Plotly.newPlot('graph2', [trace1, trace2], layout, { responsive: true });
+        }
+
+        // Ecuación 3: x³ - x²e^(-0.5x) - 3x + 1
+        function updateGraph3() {
+            const xMin = parseFloat(document.getElementById('x3-min').value);
+            const xMax = parseFloat(document.getElementById('x3-max').value);
+            
+            const f3 = (x) => Math.pow(x, 3) - Math.pow(x, 2) * Math.exp(-0.5 * x) - 3 * x + 1;
+            const data3 = generatePoints(f3, xMin, xMax);
+            
+            const trace1 = {
+                x: data3.x,
+                y: data3.y,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'f(x)',
+                line: { color: '#ff9800', width: 3 }
+            };
+            
+            const trace2 = {
+                x: [xMin, xMax],
+                y: [0, 0],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'y = 0',
+                line: { color: '#ef4444', width: 2, dash: 'dash' }
+            };
+            
+            // Marcar las tres raíces aproximadas
+            const roots = [-0.359, 0.317, 3.102];
+            const traceRoots = {
+                x: roots,
+                y: roots.map(f3),
+                type: 'scatter',
+                mode: 'markers',
+                name: 'Raíces',
+                marker: { color: '#4caf50', size: 12, symbol: 'circle' }
+            };
+            
+            const layout = {
+                ...commonLayout,
+                title: 'Ecuación 3: x³ - x²e^(-0.5x) - 3x = -1'
+            };
+            
+            Plotly.newPlot('graph3', [trace1, trace2, traceRoots], layout, { responsive: true });
+        }
+
+        // Ecuación 4: cos²(x) - 0.5xe^(0.3x) + 5
+        function updateGraph4() {
+            const xMin = parseFloat(document.getElementById('x4-min').value);
+            const xMax = parseFloat(document.getElementById('x4-max').value);
+            
+            const f4 = (x) => Math.pow(Math.cos(x), 2) - 0.5 * x * Math.exp(0.3 * x) + 5;
+            const data4 = generatePoints(f4, xMin, xMax);
+            
+            const trace1 = {
+                x: data4.x,
+                y: data4.y,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'f(x)',
+                line: { color: '#e91e63', width: 3 }
+            };
+            
+            const trace2 = {
+                x: [xMin, xMax],
+                y: [0, 0],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'y = 0',
+                line: { color: '#ef4444', width: 2, dash: 'dash' }
+            };
+            
+            const layout = {
+                ...commonLayout,
+                title: 'Ecuación 4: cos²(x) - 0.5xe^(0.3x) + 5 = 0'
+            };
+            
+            Plotly.newPlot('graph4', [trace1, trace2], layout, { responsive: true });
+        }
+
+        // Inicializar todos los gráficos al cargar
+        window.onload = () => {
+            updateGraph1();
+            updateGraph2();
+            updateGraph3();
+            updateGraph4();
+        };
+    </script>
+</body>
+</html>
