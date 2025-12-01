@@ -59,7 +59,7 @@ Cada archivo de Excel contiene:
 
 ### 🔗 Acceso a la Aplicación
 
-**[👉 Abrir Calculadora de Métodos Numéricos](andevc.github.io/desafio-raices/)**
+**[👉 Abrir Calculadora de Métodos Numéricos](https://andevc.github.io/desafio-raices/)**
 
 > **Nota:** Reemplaza `andevc.github.io/desafio-raices/` con el enlace de tu aplicación desplegada (GitHub Pages, Netlify, Vercel, etc.)
 
