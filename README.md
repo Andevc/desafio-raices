@@ -82,10 +82,10 @@ Cada archivo de Excel contiene:
    - Modifica los valores iniciales según tus necesidades
 
 4. **Visualización Completa**
-   - 📈 **Gráfico interactivo** de la función con línea y = 0
-   - 📊 **Tabla de iteraciones** detallada mostrando cada paso del proceso
-   - ✅ **Resultado final** con la raíz encontrada y error
-   - 📉 **Análisis de convergencia** (número de iteraciones)
+   - **Gráfico interactivo** de la función con línea y = 0
+   - **Tabla de iteraciones** detallada mostrando cada paso del proceso
+   - **Resultado final** con la raíz encontrada y error
+   - **Análisis de convergencia** (número de iteraciones)
 
 5. **Resultados en Tiempo Real**
    - Cálculo instantáneo al presionar "Calcular Raíz"
@@ -102,7 +102,7 @@ Cada archivo de Excel contiene:
 
 ### 📈 Gráficos de Funciones
 
-Archivo: `graficos.html`
+Archivo: `graficos.html` (abrirlo de forma local)
 
 Contiene:
 - ✅ Gráficos de alta calidad de las 4 ecuaciones
